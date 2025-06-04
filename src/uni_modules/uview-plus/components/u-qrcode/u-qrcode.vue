@@ -7,15 +7,24 @@
 				:id="cid"
                 :canvas-id="cid"
                 type="2d"
-                :style="{ width: size + unit, height: size + unit }" />
+                :style="{
+                    width: useRootHeightAndWidth ? '100%' : size + unit,
+                    height: useRootHeightAndWidth ? '100%' : size + unit
+                }"
+            />
 			<!-- #endif -->
 			<!-- #ifdef APP-NVUE -->
 			<gcanvas class="u-qrcode__canvas" ref="gcanvess"
 				:style="{ width: size + unit, height: size + unit }">
 			</gcanvas>
 			<!-- #endif -->
-			<view v-if="showLoading && loading" class="u-qrcode__loading"
-				:style="{ width: size + unit, height: size + unit }">
+			<view v-if="showLoading && loading"
+                  class="u-qrcode__loading"
+                  :style="{
+                    width: useRootHeightAndWidth ? '100%' : size + unit,
+                    height: useRootHeightAndWidth ? '100%' : size + unit
+                  }
+            ">
 				<up-loading-icon vertical :text="loadingText" textSize="14px"></up-loading-icon>
 			</view>
 		</view>
@@ -104,6 +113,11 @@ export default {
 			type: Boolean,
 			default: false
 		},
+        // 是否使用外部根节点元素大小使用时会导致 size失效
+        useRootHeightAndWidth: {
+            type: Boolean,
+            default: false
+        }
 	},
 	emits: ['result', 'longpress'],
 	data() {
